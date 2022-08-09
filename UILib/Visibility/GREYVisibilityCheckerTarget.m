@@ -22,6 +22,7 @@
 #import "CGGeometry+GREYUI.h"
 #import "GREYTraversalObject.h"
 #import "GREYTraversalProperties.h"
+#import "GREYUILibUtils.h"
 #import "GREYVisibilityChecker.h"
 
 /**
@@ -423,7 +424,7 @@ static CGRect VisibleRectOnScreen(GREYTraversalObject *object) {
   }
 
   CGRect elementRect = ConvertToScreenCoordinate(element);
-  elementRect = CGRectIntersectionStrict(elementRect, [UIScreen mainScreen].bounds);
+  elementRect = CGRectIntersectionStrict(elementRect, [GREYUILibUtils screen].bounds);
   if (!CGRectIsNull(boundingRect)) {
     CGRect boundingRectScreenCoord = [container convertRect:boundingRect toView:nil];
     elementRect = CGRectIntersectionStrict(elementRect, boundingRectScreenCoord);
@@ -546,7 +547,7 @@ static BOOL IsBackgroundColorTranslucent(UIColor *backgroundColor) {
  */
 - (BOOL)isInteractableAtPointInScreenCoordinate:(CGPoint)pointInScreenCoordinate {
   // Check if this point lies in the screen bounds.
-  CGRect screenBounds = [UIScreen mainScreen].bounds;
+  CGRect screenBounds = [GREYUILibUtils screen].bounds;
   if (!CGRectContainsPoint(screenBounds, pointInScreenCoordinate)) {
     return NO;
   }
